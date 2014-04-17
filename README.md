@@ -1,10 +1,10 @@
 wenzlaff.de
 ===========
 
-Allgemeine Scripte für Fhem
+Allgemeine Scripte und Anpassungen für Fhem auf dem Raspberry Pi
 
-+ Verzeichnis: raspberry-pi
+Verzeichnis: raspberry-pi
  -pushover-ssh.sh
  -99_myTWUtils.pm 
 
-+Verzeichnis: gplot
+Verzeichnis: www/gplot
