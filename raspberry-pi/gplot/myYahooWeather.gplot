@@ -1,0 +1,64 @@
+/*
+   myYahooWeather.gplot Version 1.0 vom 31.08.2013
+   
+   Dieses GNU-Plot Script (myYahooWeather.gplot) gibt die Kurven vom Wetterservice Yahoo aus.
+         
+   Copyright (C) 2013 Thomas Wenzlaff http://www.wenzlaff.de
+            
+   This program is free software: you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
+                        
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+                                    
+   You should have received a copy of the GNU General Public License
+   along with this program.  If not, see {http://www.gnu.org/licenses/}.
+*/
+
+### FileLog definition corresponding to this file
+# define <Wetter_Name> Weather <Yahoo-ID> <Intervall>
+# define <filelogname> FileLog /var/log/fhem/Wetter-%M_%Y.log <Wetter_Name>:(temperature|pressure|humidity|wind_chill):.*
+### FileLog content
+#2012-01-01_00:00:00 Wetter_Log temperature: 13
+#2012-01-01_00:00:00 Wetter_Log humidity: 97
+#2012-01-01_00:00:00 Wetter_Log wind_chill: 12
+
+# This is the status line, which is printed to the logfile. For each of
+# the data there is also a separate line available, which you can select
+# using a different regular expression in the FileLog define.
+# Try .* as an all quantor to see, which lines are available.
+
+set output '<OUT>.png'
+set xdata time
+set timefmt "%Y-%m-%d_%H:%M:%S"
+
+set terminal size <SIZE>
+set title '<TL>'
+set ylabel "Temperatur (C)"
+set y2label "Luftfeuchte (%)"
+set y3label "Windchill (C)"
+
+set ytics
+set y2tics
+set y3tics
+
+set grid xtics ytics
+
+# Die nachfolgenden drei Zeilen nicht veraendern!
+#FileLog 4:temperature::
+#FileLog 4:wind_chill::
+#FileLog 4:humidity::
+
+plot \
+  "< egrep 'temperature' <IN>"\
+           using 1:1 ls l0 axes x1y1 title 'Temperatur (C)' with lines lw 3,\
+             "< egrep 'wind_chill' <IN>"\
+           using 1:2 ls l1 axes x1y1 title 'Gefuehlte Temperatur (C)' with lines lw 5,\
+           "< egrep 'humidity' <IN>"\
+           using 1:3 ls l2fill axes x1y2 title 'Luftfeuchtigkeit (%)' with lines
+
+                               

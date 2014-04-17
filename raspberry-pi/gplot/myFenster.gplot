@@ -1,0 +1,45 @@
+/*
+   myFenster.gplot Version 1.0 vom 31.01.2014
+   
+   Dieses GNU-Plot Script (myFenster.gplot) gibt zwei Zustaende des Fensterkontak als Kurven aus und zwar
+   den Batterie-Zustand, den Status des Fensters. 
+    
+   (C) 2014 Thomas Wenzlaff http://www.wenzlaff.de
+               
+   This program is free software: you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
+                           
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+                                       
+   You should have received a copy of the GNU General Public License
+   along with this program.  If not, see {http://www.gnu.org/licenses/}.
+*/
+                                             
+set terminal png transparent size <SIZE> crop
+set output '<OUT>.png'
+set xdata time
+set timefmt "%Y-%m-%d_%H:%M:%S"
+set xlabel " "
+set title 'Fenster'
+
+set ytics ("Zu" 0, "Ok" 0.8, "Auf" 1)
+set y2tics ("Zu" 0, "Ok" 0.8, "Auf" 1)
+set yrange [-0.1:1.1]
+set y2range [-0.1:1.1]
+set ylabel ""
+set y2label ""
+
+#FileLog 3:az_Fenster_Schalter:0:$fld[3]=~"open"?1:0
+#FileLog 4:az_Fenster_Schalter:0:$fld[2]=~"ok"?0:0.8
+
+plot \
+       "< awk '/az_Fenster_Schalter/ {print $1, $3~/open/? 1 : 0; }' <IN>"\
+       using 1:2 title 'Fenster' with steps
+       "< awk '/az_Fenster_Schalter/ {print $1, $3~/ok/? 1 : 0; }' <IN>"\
+       using 1:2 title 'Batterie' with steps
+       

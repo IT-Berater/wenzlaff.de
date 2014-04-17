@@ -1,0 +1,47 @@
+/*
+   tw_az_heizung.gplot Version 1.0 vom 19.01.2014
+      
+   (C) 2014 Thomas Wenzlaff http://www.wenzlaff.de
+               
+   This program is free software: you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
+                           
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+                                       
+   You should have received a copy of the GNU General Public License
+   along with this program.  If not, see {http://www.gnu.org/licenses/}.
+*/
+# Heizung im Arbeitszimmer
+#
+# Anzeige der gemessenen Temperatur und des errechneten Durchschnitts
+#
+# 2014-01-23_21:01:05 az_Heizungsthermostat actuator: 0 %
+# 2014-01-23_21:04:05 az_Heizungsthermostat battery: ok
+# 2014-01-23_21:04:05 az_Heizungsthermostat batteryLevel: 3.1 V
+# 2014-01-23_21:04:05 az_Heizungsthermostat measured-temp: 24.8
+# 2014-01-23_21:04:05 az_Heizungsthermostat desired-temp: 17
+
+set terminal png transparent size <SIZE> crop
+set output '<OUT>.png'
+set xdata time
+set timefmt "%Y-%m-%d_%H:%M:%S"
+set xlabel " "
+set title '<L1>'
+set ytics
+set grid ytics y2tics
+set ylabel "IST Temperatur (C)"
+set y2label "SOLL Temperatur (C)"
+
+#DbLog az_Heizungsthermostat:measured-temp:::
+#DbLog az_Heizungsthermostat:desired-temp:::
+
+plot \
+     "< awk '/measured-temp:/ {print $1, $4}' <IN>" \
+   using 1:4 ls l0 axes x1y1 title 'IST Temperatur' lw 1 with lines \
+   "< awk '/desired-temp:/ {print $1, $4}' <IN>" \
+   using 1:4 ls l1 axes x1y1 title 'SOLL Temperatur' lw 2 with lines \

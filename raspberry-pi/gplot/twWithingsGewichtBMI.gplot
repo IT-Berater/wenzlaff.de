@@ -1,0 +1,50 @@
+/*
+   twWithingsGewichtBMI.gplot Version 1.0 vom 19.01.2014
+   
+   Dieses GNU-Plot Script (myWithingsGewichtBMI.gplot) 
+   zeigt das Gewicht und den BMI Wert der Withings Waage an.
+    
+   (C) 2014 Thomas Wenzlaff http://www.wenzlaff.de
+               
+   This program is free software: you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
+                           
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+                                       
+   You should have received a copy of the GNU General Public License
+   along with this program.  If not, see {http://www.gnu.org/licenses/}.
+*/
+
+# Logfile Beispiel:
+#
+# 2014-01-19_01:00:00 withings_waage weight: 96.1 fatRatio: 26.402
+#       1                     2         3     4      5        6
+
+set terminal png transparent size <SIZE> crop
+
+set output '<OUT>.png'
+set xdata time
+set timefmt "%Y-%m-%d_%H:%M:%S"
+set xlabel " "
+set y2tics
+set title '<L1>'
+set grid xtics y2tics
+
+set ylabel "Gewicht(KG)"
+set y2label "BMI"
+
+#FileLog 4:weight:0:
+#FileLog 6:fatRatio:0:
+
+plot \
+  "< awk '/weight/{print $1, $4}' " \
+     using 1:4 axes x1y2 title 'Gewicht (Kg)' with lines lw 2, \
+  "< awk '/fatRatio/{print $1, $6}' "\
+     awk 1:6 axes x1y2 title 'BMI' with lines lw 2 
+
+
