@@ -12,3 +12,7 @@ Verzeichnis: FHEM
  -99_myTWUtils.pm 
 
 Verzeichnis: www/gplot
+
+
+Weitere Infos unter <a href="http://blog.wenzlaff.de">blog.wenzlaff.de</a>
+
