@@ -23,9 +23,9 @@
 #   along with this program.  If not, see {http://www.gnu.org/licenses/}.
 
 # Hier den User Key von der https://pushover.net Seite eingeben:
-PUSHOVER_USER=" hier den Key"
+PUSHOVER_USER="hier den Key";
 # Hier den  API Token/Key eingeben. Zu finden unter dem Menü: Apps & Plugins dann die Applicaton 
-PUSHOVER_API_TOKEN=" hier den Token"
+PUSHOVER_API_TOKEN="hier den Token eingeben";
 
 
 tail -F /var/log/auth.log | gawk '{if(NR>10 && $0 ~ /sshd/ && $0 ~ /Accepted/)\
