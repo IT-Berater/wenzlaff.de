@@ -28,14 +28,15 @@ PUSHOVER_USER=""
 PUSHOVER_API_TOKEN=""
 
 # Ab hier nichts mehr anpassen
-if test PUSHOVER_USER
+if [ -z "$PUSHOVER_USER" ]
  then echo "Der Pushover User muss im Script angegeben werden. Einen Wert für PUSHOVER_USER setzen."
  return 1
 fi
-if test PUSHOVER_API_TOKEN
+if [ -z "$PUSHOVER_API_TOKEN" ]
  then echo "Der Pushover Token muss im Script angegeben werden. Einen Wert für PUSHOVER_API_TOKEN setzen."
  return 1
 fi
+echo "SSH Zugriff wird nun überwacht"
 
 tail -F /var/log/auth.log | gawk '{if(NR>10 && $0 ~ /sshd/ && $0 ~ /Accepted/)\
 { cmd=sprintf("curl -s \
