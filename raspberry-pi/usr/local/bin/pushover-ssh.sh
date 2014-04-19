@@ -7,7 +7,7 @@
 # Thomas Wenzlaff  15.04.2014 Installationsanleitung unter http://www.wenzlaff.info
 #
 #
-# (C) 2014 Thomas Wenzlaff http://www.wenzlaff.de
+#   (C) 2014 Thomas Wenzlaff http://www.wenzlaff.de
 #
 #   This program is free software: you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -23,10 +23,19 @@
 #   along with this program.  If not, see {http://www.gnu.org/licenses/}.
 
 # Hier den User Key von der https://pushover.net Seite eingeben:
-PUSHOVER_USER="hier den Key";
-# Hier den  API Token/Key eingeben. Zu finden unter dem Menü: Apps & Plugins dann die Applicaton 
-PUSHOVER_API_TOKEN="hier den Token eingeben";
+PUSHOVER_USER=""
+# Hier den API Token/Key eingeben. Zu finden unter dem Menü: Apps & Plugins dann die Application
+PUSHOVER_API_TOKEN=""
 
+# Ab hier nichts mehr anpassen
+if test PUSHOVER_USER
+ then echo "Der Pushover User muss im Script angegeben werden. Einen Wert für PUSHOVER_USER setzen."
+ return 1
+fi
+if test PUSHOVER_API_TOKEN
+ then echo "Der Pushover Token muss im Script angegeben werden. Einen Wert für PUSHOVER_API_TOKEN setzen."
+ return 1
+fi
 
 tail -F /var/log/auth.log | gawk '{if(NR>10 && $0 ~ /sshd/ && $0 ~ /Accepted/)\
 { cmd=sprintf("curl -s \
