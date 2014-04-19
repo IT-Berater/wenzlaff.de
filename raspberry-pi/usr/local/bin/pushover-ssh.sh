@@ -1,4 +1,4 @@
-!/bin/sh
+#!/bin/sh
 #
 # pushover-ssh.sh
 #
@@ -23,9 +23,9 @@
 #   along with this program.  If not, see {http://www.gnu.org/licenses/}.
 
 # Hier den User Key von der https://pushover.net Seite eingeben:
-PUSHOVER_USER=" hier den User Key einfügen "
-# Hier den  API Token/Key eingeben. Zu finden unter dem Menü: Apps & Plugins dann die Applicaton
-PUSHOVER_API_TOKEN=" hier den API Key einfügen "
+PUSHOVER_USER=" hier den Key"
+# Hier den  API Token/Key eingeben. Zu finden unter dem Menü: Apps & Plugins dann die Applicaton 
+PUSHOVER_API_TOKEN=" hier den Token"
 
 
 tail -F /var/log/auth.log | gawk '{if(NR>10 && $0 ~ /sshd/ && $0 ~ /Accepted/)\
@@ -35,3 +35,4 @@ tail -F /var/log/auth.log | gawk '{if(NR>10 && $0 ~ /sshd/ && $0 ~ /Accepted/)\
 -F \"message=SSH Zugriff erfolgt durch %s von %s\" \
 -F \"title=Raspberry Pi\" https://api.pushover.net/1/messages.json",$9,$11); \
 system(cmd)}}'
+
