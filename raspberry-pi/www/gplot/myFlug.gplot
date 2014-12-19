@@ -1,0 +1,41 @@
+/*
+   myFlug.gplot Version 1.0 vom 17.12.2014
+
+   Dieses GNU-Plot Script zeigt die Flugdaten von den empfangenen Transpondern an.
+
+   Copyright (C) 2014 Thomas Wenzlaff http://www.wenzlaff.de
+
+   This program is free software: you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with this program.  If not, see {http://www.gnu.org/licenses/}.
+*/
+
+# Die Logdatei sieht wie folgt aus:
+
+# 2014-12-05_07:05:58 flugdaten anzahl:29
+# 2014-12-05_07:10:58 flugdaten anzahl:23
+
+set terminal png transparent size <SIZE> crop
+set output '<OUT>.png'
+set xdata time
+set timefmt "%Y-%m-%d_%H:%M:%S"
+set xlabel " "
+set title 'Empfangene Flugzeuge'
+set ytics 
+set y2tics 
+set grid ytics y2tics
+set ylabel "Anzahl Flugzeuge"
+set y2label "Anzahl Flugzeuge"
+
+#FileLog 4:flugdaten anzahl:0:
+
+plot "<IN>" using 1:2 axes x1y2 title 'Anzahl Flugzeuge' ls l0 lw 2 with lines
