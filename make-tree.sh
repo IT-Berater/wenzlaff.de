@@ -21,7 +21,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see {http://www.gnu.org/licenses/}.
 #
-# Folgendes Programm muss installiert werden: sudo apt-get install debtree
+# Das Programm debtree muss installiert werden mit: 
+# sudo apt-get install debtree
 # Siehe http://blog.wenzlaff.de/?p=3839
 #
 # Aufruf: ./make-tree Package
