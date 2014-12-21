@@ -3,6 +3,9 @@ wenzlaff.de
 
 Allgemeine Scripte und Anpassungen für Fhem auf dem Raspberry Pi
 
+Erzeugt PNG von Abhängigkeiten:
+make-tree.sh 
+
 ## Verzeichnise
 
 * raspberry-pi
